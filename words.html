@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>M3TiiNY Words</title>
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  
+  <div class="logo">
+    <img id="logo" class="logo-img" src="assets/img/logo.png" />
+  </div>
+  <div class="loader">
+    <div class="cdx-loader"></div>
+    <div class="loader-text"></div>
+  </div> 
+  <div contenteditable id="editorjs"></div>
+  <div>
+    <pre id="output"></pre>
+  </div>
+  <script src="assets/js/editor.js"></script>
+  <script src="assets/js/plugin/header.js"></script>
+  <script src="assets/js/plugin/simple-image.js"></script>
+  <script src="assets/js/plugin/delimiter.js"></script>
+  <script src="assets/js/plugin/list.js"></script>
+  <script src="assets/js/plugin/checklist.js"></script>
+  <script src="assets/js/plugin/quote.js"></script>
+  <script src="assets/js/plugin/code.js"></script>
+  <script src="assets/js/plugin/embed.js"></script>
+  <script src="assets/js/plugin/table.js"></script>
+  <script src="assets/js/plugin/link.js"></script>
+  <script src="assets/js/plugin/warning.js"></script>
+  <script src="assets/js/plugin/tooltip.js"></script>
+  <script src="assets/js/plugin/marker.js"></script>
+  <script src="assets/js/plugin/inline-code.js"></script>
+  <script src="assets/js/plugin/drag-drop.js"></script>
+  <script src="assets/js/plugin/underline.js"></script>
+  <script src="assets/js/plugin/undo.js"></script>
+  <script src="assets/js/plugin/alert.js"></script>
+  <script src="assets/js/plugin/toggle-block.js"></script>
+  <script src="assets/js/plugin/paragraph-with-alignment.js"></script>
+  <script src="assets/js/plugin/style.js"></script>
+  <script src="assets/js/plugin/color.js"></script>
+  <script src="assets/js/plugin/link-autocomplete.js"></script>
+  <script src="assets/js/plugin/text-alignment-blocktune.js"></script>
+  <script src="assets/js/plugin/layout.js"></script>
+  <script src="assets/js/plugin/inline-template.js"></script>
+  <script src="assets/js/plugin/button.js"></script>
+  <script src="assets/js/plugin/mermaid.js"></script>
+  <script src="assets/js/plugin/anchortune.js"></script>
+  <script src="assets/js/plugin/annotation.js"></script>
+  <script src="assets/js/plugin/notice.js"></script>
+  <script src="assets/js/plugin/fontfamily.js"></script>
+  <script src="assets/js/plugin/strikethrough.js"></script>
+  <script src="assets/js/plugin/hyperlink.js"></script>
+  <script src="assets/js/plugin/nested-list.js"></script>
+  <script src="assets/js/plugin/raw.js"></script>
+  <script src="assets/js/plugin/footnotes.js"></script>
+  <script src="assets/js/plugin/image.js"></script>
+  <script src="assets/js/plugin/markdown-parser.js"></script>
+  
+  <script>
+    class SimpleImage {
+      constructor(){
+        this.data = data;
+        this.wrapper = undefined;
+      }
+
+      // ... previously added methods
+
+      renderSettings(){
+        const settings = [
+          {
+            name: 'withBorder',
+            icon: `<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8 10.592v2.043h2.35v2.138H15.8v2.232h-2.25v-2.232h-2.4v-2.138h2.4v-2.28h2.25v.237h1.15-1.15zM1.9 8.455v-3.42c0-1.154.985-2.09 2.2-2.09h4.2v2.137H4.15v3.373H1.9zm0 2.137h2.25v3.325H8.3v2.138H4.1c-1.215 0-2.2-.936-2.2-2.09v-3.373zm15.05-2.137H14.7V5.082h-4.15V2.945h4.2c1.215 0 2.2.936 2.2 2.09v3.42z"/></svg>`
+          },
+          {
+            name: 'stretched',
+            icon: `<svg width="17" height="10" viewBox="0 0 17 10" xmlns="http://www.w3.org/2000/svg"><path d="M13.568 5.925H4.056l1.703 1.703a1.125 1.125 0 0 1-1.59 1.591L.962 6.014A1.069 1.069 0 0 1 .588 4.26L4.38.469a1.069 1.069 0 0 1 1.512 1.511L4.084 3.787h9.606l-1.85-1.85a1.069 1.069 0 1 1 1.512-1.51l3.792 3.791a1.069 1.069 0 0 1-.475 1.788L13.514 9.16a1.125 1.125 0 0 1-1.59-1.591l1.644-1.644z"/></svg>`
+          },
+          {
+            name: 'withBackground',
+            icon: `<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.043 8.265l3.183-3.183h-2.924L4.75 10.636v2.923l4.15-4.15v2.351l-2.158 2.159H8.9v2.137H4.7c-1.215 0-2.2-.936-2.2-2.09v-8.93c0-1.154.985-2.09 2.2-2.09h10.663l.033-.033.034.034c1.178.04 2.12.96 2.12 2.089v3.23H15.3V5.359l-2.906 2.906h-2.35zM7.951 5.082H4.75v3.201l3.201-3.2zm5.099 7.078v3.04h4.15v-3.04h-4.15zm-1.1-2.137h6.35c.635 0 1.15.489 1.15 1.092v5.13c0 .603-.515 1.092-1.15 1.092h-6.35c-.635 0-1.15-.489-1.15-1.092v-5.13c0-.603.515-1.092 1.15-1.092z"/></svg>`
+          }
+        ];
+        const wrapper = document.createElement('div');
+
+        settings.forEach( tune => {
+          let button = document.createElement('div');
+
+          button.classList.add('cdx-settings-button');
+          button.innerHTML = tune.icon;
+          wrapper.appendChild(button);
+        });
+
+        return wrapper;
+      }
+    }
+    const ColorPlugin = window.ColorPlugin;
+    var editorJSConfig = {};
+    const Carousel = window.Carousel;
+    var editor = new EditorJS({
+        /**
+         * Create a holder for the Editor and pass its ID
+         */
+        holder : 'editorjs',
+        /**
+         * Available Tools list.
+         * Pass Tool's class or Settings object for each Tool you want to use
+         */
+        readOnly: false,
+      
+        inlineToolbar: true,
+        tools: {
+          header: {
+            class: Header,
+            inlineToolbar: true,
+            config: {
+              placeholder: 'Enter a heading',
+              levels: [1, 2, 3, 4],
+              defaultLevel: 3,
+              defaultAlignment: 'left'
+            },
+            shortcut: 'CMD+SHIFT+H'
+          },
+          footnotes: {
+            class: FootnotesTune,
+            config: {
+              placeholder: 'Type your footnotes',
+              shortcut: 'CMD+SHIFT+F',
+            },
+          },
+          markdownParser: MDParser,
+          markdownImporter: MDImporter,
+          Color: {
+            class: ColorPlugin, // if load from CDN, please try: window.ColorPlugin
+            config: {
+               colorCollections: ['#EC7878','#9C27B0','#673AB7','#3F51B5','#0070FF','#03A9F4','#00BCD4','#4CAF50','#8BC34A','#CDDC39', '#FFF'],
+               defaultColor: '#FF1300',
+               type: 'text', 
+               customPicker: true // add a button to allow selecting any colour  
+            }     
+          },
+          mermaid: MermaidTool,
+          fontFamily: FontFamilyTool,
+          hyperlink: {
+            class: Hyperlink,
+            config: {
+              shortcut: 'CMD+L',
+              target: '_blank',
+              rel: 'nofollow',
+              availableTargets: ['_blank', '_self'],
+              availableRels: ['author', 'noreferrer'],
+              validate: false,
+            }
+          },
+          raw: {
+            class: RawTool,
+            config: {
+              placeholder: 'Enter raw HTML',
+              shortcut: 'CMD+R',
+            }
+          },
+          style: EditorJSStyle.StyleInlineTool,
+          underline: {
+            class: Underline,
+            config: {
+              shortcut: 'CMD+U',
+            }
+          },
+          toggle: {
+            class: ToggleBlock,
+            inlineToolbar: true,
+          },
+          annotation: Annotation,
+          noticeTune: NoticeTune,
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true,
+            shortcut: 'CMD+SHIFT+T',
+            config: {
+              placeholder: 'Enter text',
+            }
+          },
+          
+          image: {
+            class: ImageTool,
+            inlineToolbar: true,
+            config: {
+              placeholder: 'Paste image URL',
+              endpoints: {
+                byFile: 'https://webhook.site/5093070f-e38d-463e-88e3-2893c662ccc1'
+              }
+            },
+            shortcut: 'CMD+I'
+          },
+          AnyButton: {
+            class: AnyButton,
+            inlineToolbar: false,
+            config:{
+              css:{
+                "btnColor": "btn--gray",
+              }
+            },
+            shortcut: 'CMD+ALT+B'
+          },
+          anchorTune: AnchorTune,
+          template: {
+            class: EditorJSInlineTemplate.TemplateInlineTool,
+            config: {
+              buttonHTML: `
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                  <path d="M336 64h32a48 48 0 0148 48v320a48 48 0 01-48 48H144a48 48 0 01-48-48V112a48 48 0 0148-48h32" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+                  <rect x="176" y="32" width="160" height="64" rx="26.13" ry="26.13" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+                </svg>
+              `,
+              html: "<b>template</b>⭐",
+            },
+          },
+          list: {
+            class: List,
+            inlineToolbar: true,
+            config: {
+              defaultStyle: 'unordered'
+            },
+            shortcut: 'CMD+SHIFT+L'
+          },
+
+          checklist: {
+            class: Checklist,
+            inlineToolbar: true,
+          },
+          delimiter: Delimiter,
+          
+          quote: {
+            class: Quote,
+            inlineToolbar: true,
+            config: {
+              quotePlaceholder: 'Enter a quote',
+              captionPlaceholder: 'Quote\'s author',
+            },
+            shortcut: 'CMD+SHIFT+O'
+          },
+          warning: Warning,
+          
+          marker: {
+            class: ColorPlugin,
+            shortcut: 'CMD+SHIFT+M'
+          },
+
+          code: {
+            class:  CodeTool,
+            shortcut: 'CMD+SHIFT+C',
+            config: {
+              placeholder: 'Enter code',
+            }
+          },
+
+          delimiter: Delimiter,
+
+          inlineCode: {
+            class: InlineCode,
+            shortcut: 'CMD+SHIFT+C'
+          },
+
+          linkTool: LinkTool,
+          link: {
+            class: LinkAutocomplete,
+            config: {
+              endpoint: 'https://webhook.site/5093070f-e38d-463e-88e3-2893c662ccc1',
+              queryParam: 'search'
+            }
+          },
+
+          embed: {
+            class: Embed,
+            inlineToolbar: true,
+            config: {
+              services: {
+                youtube: true,
+                coub: true,
+                vimeo: true,
+                vk: true,
+                facebook: true,
+                instagram: true,
+                twitter: true,
+                miro: true,
+                aparat: true,
+                codepen: true,
+                github: true,
+                vine: true,
+                gfycat: true,
+                imgur: true,
+                pinterest: true
+              },
+            },
+            shortcut: 'CMD+SHIFT+E'
+          },
+
+          table: {
+            class: Table,
+            inlineToolbar: true,
+            config: {
+              rows: 2,
+              cols: 3,
+              withHeadings: true,
+            },
+            shortcut: 'CMD+ALT+T'
+          },
+          alert: {
+            class: Alert,
+            inlineToolbar: true,
+            shortcut: 'CMD+SHIFT+A',
+            config: {
+              defaultType: 'primary',
+              messagePlaceholder: 'Enter something',
+            },
+          },
+          tooltip: {
+            class: Tooltip,
+            config: {
+              location: 'left',
+              highlightColor: '#FFEFD5',
+              underline: true,
+              backgroundColor: '#154360',
+              textColor: '#FDFEFE',
+              holder: 'editorjs',
+            }
+          },
+          strikethrough: {
+            class: Strikethrough,
+            shortcut: 'CMD+SHIFT+X',
+          },
+          layout: {
+            class: EditorJSLayout.LayoutBlockTool,
+            config: {
+              EditorJS,
+              editorJSConfig,
+              enableLayoutEditing: false,
+              enableLayoutSaving: true,
+              initialData: {
+                itemContent: {
+                  1: {
+                    blocks: [],
+                  },
+                },
+                layout: {
+                  type: "container",
+                  id: "",
+                  className: "",
+                  style: "border: 1px solid #000000; ",
+                  children: [
+                    {
+                      type: "item",
+                      id: "",
+                      className: "",
+                      style: "border: 1px solid #000000; display: inline-block; ",
+                      itemContentId: "1",
+                    },
+                  ],
+                },
+              },
+            },
+          },
+          twoColumns: {
+            class: EditorJSLayout.LayoutBlockTool,
+            config: {
+              EditorJS,
+              editorJSConfig,
+              enableLayoutEditing: false,
+              enableLayoutSaving: false,
+              initialData: {
+                itemContent: {
+                  1: {
+                    blocks: [],
+                  },
+                  2: {
+                    blocks: [],
+                  },
+                },
+                layout: {
+                  type: "container",
+                  id: "",
+                  className: "",
+                  style:
+                    "border: 1px solid #000000; display: flex; justify-content: space-around; padding: 16px; ",
+                  children: [
+                    {
+                      type: "item",
+                      id: "",
+                      className: "",
+                      style: "border: 1px solid #000000; padding: 8px; ",
+                      itemContentId: "1",
+                    },
+                    {
+                      type: "item",
+                      id: "",
+                      className: "",
+                      style: "border: 1px solid #000000; padding: 8px; ",
+                      itemContentId: "2",
+                    },
+                  ],
+                },
+              },
+            },
+            shortcut: "CMD+2",
+            toolbox: {
+              icon: `
+                <svg xmlns='http://www.w3.org/2000/svg' width="16" height="16" viewBox='0 0 512 512'>
+                  <rect x='128' y='128' width='336' height='336' rx='57' ry='57' fill='none' stroke='currentColor' stroke-linejoin='round' stroke-width='32'/>
+                  <path d='M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'/>
+                </svg>
+              `,
+              title: "2 columns",
+            },
+          },
+        },
+        tunes: ['anchorTune', 'noticeTune', 'footnotes'],
+        placeholder: 'Write your awesome content',
+        logLevel: 'VERBOSE',
+        autofocus: true,
+        
+        /**
+         * Previously saved data that should be rendered
+         */
+        data: {
+          time : 1550476186479,
+          blocks: [
+            {
+              id: "l98dyx3yjb",
+              type: "header",
+              data: {
+                text: "Welcome to M3TiiNY Words",
+                level: 1,
+              },
+            },
+            {
+              id: "mhTl6ghSkV",
+              type: "paragraph",
+              data: {
+                text: "The simplest editor of M3TiiNY",
+              },
+            },
+            {
+              id: "l98dyx3yjb",
+              type: "header",
+              data: {
+                text: "Key features",
+                level: 3,
+              },
+            },
+            {
+              id: "os_YI4eub4",
+              type: "list",
+              data: {
+                type: "unordered",
+                items: [
+                "It is a block-style document HTML software",
+                "Simply. No complex",
+                "Designed for the great experiment",
+                ] ,
+              } ,
+            },
+            {
+              id: "l98dyx3yjb",
+              type: "header",
+              data: {
+                text: " Get started with M3TiiNY Words",
+                level: 3,
+              },
+            },
+            {
+              id: "os_YI4eub4",
+              type: "list",
+              data: {
+                type: "ordered",
+                items: [
+                "Plus: Tap + and add an element. Or you can do a keyboard operation with shortcuts",
+                "Enter a text and highlight the text, you will see the text toolbar.",
+                "There is no toolbar. Make it the simplest editor for the easy document editing",
+                  "Edit the content and then save the content directly as an markdown(.md) file."
+                ] ,
+              } ,
+            },
+            {
+              id: "hZAjSnqYMX",
+              type: "image",
+              data: {
+                file: {
+                  url: "assets/img/logo.png",
+                } ,
+                withBorder: false,
+                withBackground: false,
+                stretched: true,
+                caption: "M3TiiNY Logo",
+              } ,
+            } ,
+          ],
+          version: "2.28.2"
+        },
+        
+        onReady: () => {
+          new Undo({ editor });
+          new DragDrop(editor);
+          MermaidTool.config({ 'theme': 'neutral' })
+        },
+    });
+
+    setTimeout(() => {
+      document.getElementById('editorjs').style.display = 'block';
+      document.querySelector('.cdx-loader').style.display = 'none';
+      document.querySelector('.loader').style.display = 'none';
+      document.querySelector('.loader-text').style.display = 'none';
+      document.querySelector('.logo').style.display = 'block';
+      document.querySelector('.logo-img').style.display = 'block';
+    }, 5000);
+
+    function loading() {
+      setTimeout(() => {
+        document.querySelector('.loader-text').innerHTML = 'Loading...';
+      }, 15000);
+    }
+
+    loading () 
+  </script>
+  
+</body>
+
+</html>
