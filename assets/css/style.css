@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Let logo to be pinned in the bottom right */
+.logo {
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  /* Let the logo placed forward */
+  z-index: 1;
+  display: none;
+}
+.logo-img {
+  width: 150px;
+}
+
+
+@media print {
+  .logo {
+    display: none;
+  }
+  .logo-img {
+    display: none;
+  }
+}
+
+#editorjs {
+  display: none; /* Hide the editor initially */
+  font-weight: 400;
+  line-weight: 0.5;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+.loader-text {
+  position: absolute;
+  bottom: 20px; /* Adjust the distance from the bottom as needed */
+  left: 50%;  /* Center the loader text horizontally */
+  transform: translateX(-50%);  /* Center the loader text horizontally */
+}
+
+.loader::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.cdx-loader::after {
+  width: 100px; /* Set the width of the loader */
+  height: 100px;
+}
+
+.cdx-loader.loading + #editorjs {
+  display: block; /* Show the editor when the loader is active */
+  color: f5a9cb;
+}
+
+.ce-inline-tool {
+  color: #333333;
+}
+
+.ce-inline-tool--active {
+  color: #f5a9cb;
+}
+
