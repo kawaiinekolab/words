@@ -11,7 +11,7 @@
 <body>
   
   <div class="logo">
-    <img id="logo" class="logo-img" src="assets/img/logo/m3tiiny-logo.png" />
+    <img id="logo" class="logo-img" src="assets/img/logo/kawaiineko-logo.png" />
   </div>
   <div class="loader">
     <div class="cdx-loader"></div>
@@ -119,22 +119,36 @@
             class: Header,
             inlineToolbar: true,
             config: {
-              placeholder: 'Enter a heading',
+              placeholder: '見出しを入力してください',
               levels: [1, 2, 3, 4],
               defaultLevel: 3,
               defaultAlignment: 'left'
             },
             shortcut: 'CMD+SHIFT+H'
           },
+          attaches: {
+            class: AttachesTool,
+            config: {
+              endpoint: 'http://localhost:8008/uploadFile'
+            },
+            shortcut: 'CMD+F',
+          },
           footnotes: {
             class: FootnotesTune,
             config: {
-              placeholder: 'Type your footnotes',
+              placeholder: '脚注を入力してください',
               shortcut: 'CMD+SHIFT+F',
             },
           },
-          markdownParser: MDParser,
-          markdownImporter: MDImporter,
+          
+          markdownParser: {
+            class: MDParser,
+            shortcut: 'CMD+ALT+I',
+          },
+          markdownImporter: {
+            class: MDImporter,
+            shortcut: 'CMD+ALT+M',
+          },
           Color: {
             class: ColorPlugin, // if load from CDN, please try: window.ColorPlugin
             config: {
@@ -168,7 +182,7 @@
           underline: {
             class: Underline,
             config: {
-              shortcut: 'CMD+U',
+              shortcut: 'CMD+SHIFT+U',
             }
           },
           toggle: {
@@ -182,7 +196,8 @@
             inlineToolbar: true,
             shortcut: 'CMD+SHIFT+T',
             config: {
-              placeholder: 'Enter text',
+              placeholder: 'テキストを入力してください',
+              
             }
           },
           
@@ -190,10 +205,13 @@
             class: ImageTool,
             inlineToolbar: true,
             config: {
-              placeholder: 'Paste image URL',
+              placeholder: '画像のURLを貼り付ける',
               endpoints: {
-                byFile: 'https://webhook.site/5093070f-e38d-463e-88e3-2893c662ccc1'
-              }
+                byFile: 'https://webhook.site/5093070f-e38d-463e-88e3-2893c662ccc1',
+                byUrl: 'http://localhost:8008/fetchUrl',
+              },
+              field: 'image',
+              types: 'image/*'
             },
             shortcut: 'CMD+I'
           },
@@ -239,8 +257,8 @@
             class: Quote,
             inlineToolbar: true,
             config: {
-              quotePlaceholder: 'Enter a quote',
-              captionPlaceholder: 'Quote\'s author',
+              quotePlaceholder: '見積もりを入力してください',
+              captionPlaceholder: '引用の著者',
             },
             shortcut: 'CMD+SHIFT+O'
           },
@@ -316,7 +334,7 @@
             shortcut: 'CMD+SHIFT+A',
             config: {
               defaultType: 'primary',
-              messagePlaceholder: 'Enter something',
+              messagePlaceholder: '何かを入力してください',
             },
           },
           tooltip: {
@@ -419,7 +437,7 @@
           },
         },
         tunes: ['anchorTune', 'noticeTune', 'footnotes'],
-        placeholder: 'Write your awesome content',
+        placeholder: 'あなたの素晴らしいコンテンツを書いてください',
         logLevel: 'VERBOSE',
         autofocus: true,
         
@@ -433,7 +451,7 @@
               id: "l98dyx3yjb",
               type: "header",
               data: {
-                text: "Welcome to M3TiiNY Words",
+                text: "かわい猫の言葉へようこそ",
                 level: 1,
               },
             },
@@ -441,14 +459,14 @@
               id: "mhTl6ghSkV",
               type: "paragraph",
               data: {
-                text: "The simplest editor of M3TiiNY",
+                text: "かわい猫の最も単純な編集者",
               },
             },
             {
               id: "l98dyx3yjb",
               type: "header",
               data: {
-                text: "Key features",
+                text: "主な機能",
                 level: 3,
               },
             },
@@ -458,9 +476,9 @@
               data: {
                 type: "unordered",
                 items: [
-                "It is a block-style document HTML software",
-                "Simply. No complex",
-                "Designed for the great experiment",
+                "それはブロックスタイルのドキュメントHTMLソフトウェアです",
+                "単純に。複雑ではない",
+                "偉大な実験のために設計された",
                 ] ,
               } ,
             },
@@ -468,7 +486,7 @@
               id: "l98dyx3yjb",
               type: "header",
               data: {
-                text: " Get started with M3TiiNY Words",
+                text: "かわい猫の言葉から始めよう",
                 level: 3,
               },
             },
@@ -478,10 +496,10 @@
               data: {
                 type: "ordered",
                 items: [
-                "Plus: Tap + and add an element. Or you can do a keyboard operation with shortcuts",
-                "Enter a text and highlight the text, you will see the text toolbar.",
-                "There is no toolbar. Make it the simplest editor for the easy document editing",
-                  "Edit the content and then save the content directly as an markdown(.md) file."
+                "プラス：+をタップして要素を追加します。または、ショートカットでキーボード操作を行うこともできます",
+                "テキストを入力してテキストを強調表示すると、テキストツールバーが表示されます。",
+                "ツールバーはありません。簡単なドキュメント編集のための最もシンプルなエディタにする",
+                  "コンテンツを編集し、コンテンツをマークダウン(.md)ファイルとして直接保存します。"
                 ] ,
               } ,
             },
@@ -490,16 +508,146 @@
               type: "image",
               data: {
                 file: {
-                  url: "assets/img/logo/m3tiiny-logo.png",
+                  url: "assets/img/logo/kawaiineko-logo.png",
                 } ,
                 withBorder: false,
                 withBackground: false,
                 stretched: true,
-                caption: "M3TiiNY Logo",
+                caption: "かわい猫のすぐに",
               } ,
             } ,
           ],
           version: "2.28.2"
+        },
+
+        i18n: {
+          /**
+           * @type {I18nDictionary}
+           */
+          messages: {
+            /**
+             * Other below: translation of different UI components of the editor.js core
+             */
+            ui: {
+              "blockTunes": {
+                "toggler": {
+                  "Click to tune": "クリックして設定",
+                  "or drag to move": "またはドラッグ&ドロップ",
+                },
+              },
+              "inlineToolbar": {
+                "converter": {
+                  "Convert to": "に変換する"
+                }
+              },
+              "toolbar": {
+                "toolbox": {
+                  "Add": "追加するには",
+                  "Filter": "フィルタ",
+                }
+              }
+            },
+
+            "alert": {
+              
+            },
+            /**
+             * Section for translation Tool Names: both block and inline tools
+             */
+            toolNames: {
+              "Text": "パラグラフ",
+              "Heading": "見出し",
+              "List": "リスト",
+              "Warning": "メモ",
+              "Checklist": "チェックリスト",
+              "Quote": "引用文",
+              "Code": "コード",
+              "Delimiter": "隔離板",
+              "Raw HTML": "HTMLフラグメント",
+              "Table": "テーブル",
+              "Link": "参考文献",
+              "Marker": "マーカー",
+              "Bold": "大胆な",
+              "Italic": "イタリック",
+              "InlineCode": "モノシディテッド",
+              "Alert": "警告",
+              "Image": "画像",
+              "Embed": "埋め込み",
+              "Attachment": "添付ファイル",
+              
+              "Download Markdown": "ダウンロードMarkdown",
+              "Import Markdown": "インポートMarkdown",
+            },
+
+            /**
+             * Section for passing translations to the external tools classes
+             */
+            tools: {
+              /**
+               * Each subsection is the i18n dictionary that will be passed to the corresponded plugin
+               * The name of a plugin should be equal the name you specify in the 'tool' section for that plugin
+               */
+              "list": {
+                "Ordered": "数字の書かれた",
+                "Unordered": "印のある",
+              },
+              "header": {
+                "Header": "見出し",
+                "Heading 1" : "見出し1",
+                "Heading 2" : "見出し2",
+                "Heading 3" : "見出し3",
+                "Heading 4" : "見出し4",
+                "Heading 5" : "見出し5",
+                "Heading 6" : "見出し6",
+              },
+              "warning": { // <-- 'Warning' tool will accept this dictionary section
+                "Title": "タイトル",
+                "Message": "コミュニケーション",
+              },
+
+              "image": {
+                "Caption": "サイン",
+                "Select an Image": "ファイルを選択してください",
+                "With border": "フレームを追加する",
+                "Stretch image": "伸ばす",
+                "With background": "基板を追加する",
+              },
+              /**
+               * Link is the internal Inline Tool
+               */
+              "link": {
+                "Add a link": "リンクを貼り付ける"
+              },
+              /**
+               * The "stub" is an internal block tool, used to fit blocks that does not have the corresponded plugin
+               */
+              "stub": {
+                'The block can not be displayed correctly.': 'ブロックは表示できません'
+              }
+            },
+
+            /**
+             * Section allows to translate Block Tunes
+             */
+            blockTunes: {
+              /**
+               * Each subsection is the i18n dictionary that will be passed to the corresponded Block Tune plugin
+               * The name of a plugin should be equal the name you specify in the 'tunes' section for that plugin
+               *
+               * Also, there are few internal block tunes: "delete", "moveUp" and "moveDown"
+               */
+              "delete": {
+                "Delete": "削除するには",
+                "Click to delete": "クリックして削除",
+              },
+              "moveUp": {
+                "Move up": "上がる"
+              },
+              "moveDown": {
+                "Move down": "下がる"
+              }
+            },
+          }
         },
         
         onReady: () => {
